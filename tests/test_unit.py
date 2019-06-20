@@ -1,6 +1,5 @@
 import binascii
 import io
-import lzma
 import os
 
 import py7zr.archiveinfo
@@ -8,6 +7,11 @@ import py7zr.compression
 import py7zr.helpers
 import py7zr.properties
 import pytest
+
+try:
+    import lzma
+except ImportError:
+    import backports.lzma as lzma
 
 testdata_path = os.path.join(os.path.dirname(__file__), 'data')
 

@@ -16,13 +16,20 @@
 #    You should have received a copy of the GNU Lesser General Public
 #    License along with this library; if not, write to the Free Software
 #    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+from __future__ import absolute_import
+
 import argparse
-import lzma
 import os
 
 import py7zr
 import texttable
+
 from py7zr.properties import SupportedMethods
+
+try:
+    import lzma
+except ImportError:
+    from backports import lzma
 
 
 class Cli():

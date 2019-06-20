@@ -1,8 +1,13 @@
-import lzma
+from __future__ import absolute_import
 
 import py7zr.compression
 import pytest
 from py7zr.helpers import calculate_crc32
+
+try:
+    import lzma
+except ImportError:
+    import backports.lzma as lzma
 
 
 @pytest.mark.unit

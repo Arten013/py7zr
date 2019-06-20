@@ -21,15 +21,21 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
+from __future__ import absolute_import
+
 import bz2
 import concurrent.futures
 import io
-import lzma
 import zlib
 
 from py7zr import UnsupportedCompressionMethodError
 from py7zr.helpers import calculate_crc32
 from py7zr.properties import CompressionMethod, Configuration
+
+try:
+    import lzma
+except ImportError:
+    from backports import lzma
 
 
 class NullHandler:

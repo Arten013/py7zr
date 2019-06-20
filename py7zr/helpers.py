@@ -22,8 +22,13 @@
 #
 
 import time as _time
-from datetime import datetime, timedelta, timezone, tzinfo
+from datetime import datetime, timedelta, tzinfo
 from zlib import crc32
+
+try:
+    from datetime import timezone
+except ImportError:
+    from pytz import timezone
 
 
 def calculate_crc32(data, value=None, blocksize=1024 * 1024):

@@ -1,8 +1,11 @@
+backports.lzma; python_version == '2.7'
 bringbuf
+futures; python_version == '2.7'
 texttable
 pytest
 pytest-benchmark
 pytest-cov
+pytz; python_version == '2.7'
 coverage
 coveralls
 flake8

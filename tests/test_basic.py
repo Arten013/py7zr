@@ -1,5 +1,6 @@
+from __future__ import absolute_import
+
 import io
-import lzma
 import os
 import shutil
 import tempfile
@@ -12,6 +13,12 @@ import py7zr.compression
 import pytest
 
 from . import check_output, decode_all
+
+try:
+    import lzma
+except ImportError:
+    from backports import lzma
+
 
 testdata_path = os.path.join(os.path.dirname(__file__), 'data')
 os.environ['TZ'] = 'UTC'

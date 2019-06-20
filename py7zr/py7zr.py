@@ -23,6 +23,7 @@
 #
 #
 """Read 7zip format archives."""
+from __future__ import absolute_import
 
 import errno
 import functools
