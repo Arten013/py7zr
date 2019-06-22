@@ -174,6 +174,8 @@ class ArchiveFileList:
         self.index += 1
         return res
 
+    next = __next__
+
 
 # ------------------
 # Exported Classes
@@ -388,18 +390,18 @@ class SevenZipFile:
     def _print_archiveinfo(self, file=None):
         if file is None:
             file = sys.stdout
-        file.write("--\n")
-        file.write("Path = {}\n".format(self.filename))
-        file.write("Type = 7z\n")
+        file.write(u"--\n")
+        file.write(u"Path = {}\n".format(self.filename))
+        file.write(u"Type = 7z\n")
         fstat = os.stat(self.filename)
-        file.write("Phisical Size = {}\n".format(fstat.st_size))
-        file.write("Headers Size = {}\n".format(self.header.size))  # fixme.
-        file.write("Method = {}\n".format(self._print_methods()))
+        file.write(u"Phisical Size = {}\n".format(fstat.st_size))
+        file.write(u"Headers Size = {}\n".format(self.header.size))  # fixme.
+        file.write(u"Method = {}\n".format(self._print_methods()))
         if self.solid:
-            file.write("Solid = {}\n".format('+'))
+            file.write(u"Solid = {}\n".format('+'))
         else:
-            file.write("Solid = {}\n".format('-'))
-        file.write("Blocks = {}\n".format(len(self.header.main_streams.unpackinfo.folders)))
+            file.write(u"Solid = {}\n".format('-'))
+        file.write(u"Blocks = {}\n".format(len(self.header.main_streams.unpackinfo.folders)))
 
     def _print_methods(self):
         methods_names = []
@@ -479,12 +481,12 @@ class SevenZipFile:
         if file is None:
             file = sys.stdout
         if verbose:
-            file.write("Listing archive: {}\n".format(self.filename))
+            file.write(u"Listing archive: {}\n".format(self.filename))
             self._print_archiveinfo(file=file)
-            file.write('\n')
-        file.write('total %d files and directories in %sarchive\n' % (self._num_files(), (self.solid and 'solid ') or ''))
-        file.write('   Date      Time    Attr         Size   Compressed  Name\n')
-        file.write('------------------- ----- ------------ ------------  ------------------------\n')
+            file.write(u'\n')
+        file.write(u'total %d files and directories in %sarchive\n' % (self._num_files(), (self.solid and 'solid ') or ''))
+        file.write(u'   Date      Time    Attr         Size   Compressed  Name\n')
+        file.write(u'------------------- ----- ------------ ------------  ------------------------\n')
         for f in self.files:
             if f.lastwritetime is not None:
                 creationdate = filetime_to_dt(f.lastwritetime).astimezone(Local).strftime("%Y-%m-%d")
@@ -501,9 +503,9 @@ class SevenZipFile:
             else:
                 attrib += '.'
             extra = (f.compressed and '%12d ' % (f.compressed)) or '           0 '
-            file.write('%s %s %s %12d %s %s\n' % (creationdate, creationtime, attrib,
-                                                  f.uncompressed_size, extra, f.filename))
-        file.write('------------------- ----- ------------ ------------  ------------------------\n')
+            file.write(u'%s %s %s %12d %s %s\n' % (creationdate, creationtime, attrib,
+                                                   f.uncompressed_size, extra, f.filename))
+        file.write(u'------------------- ----- ------------ ------------  ------------------------\n')
 
     def test(self, file=None):
         if file is None:

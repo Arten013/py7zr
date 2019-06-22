@@ -20,6 +20,7 @@ from __future__ import absolute_import
 
 import argparse
 import os
+import sys
 
 import py7zr
 import texttable
@@ -73,7 +74,10 @@ class Cli():
         table.set_cols_dtype(['t', 't'])
         table.set_cols_align(["l", "r"])
         for f in SupportedMethods.formats:
-            m = ''.join(' {:02x}'.format(x) for x in f['magic'])
+            if sys.version_info.major > 2:
+                m = ''.join(' {:02x}'.format(x) for x in f['magic'])
+            else:
+                m = ''.join(' {:02x}'.format(ord(x)) for x in f['magic'])
             table.add_row([f['name'], m])
         print(table.draw())
         print("\nCodecs:")
@@ -82,7 +86,10 @@ class Cli():
         table.set_cols_dtype(['t', 't'])
         table.set_cols_align(["l", "r"])
         for c in SupportedMethods.codecs:
-            m = ''.join('{:02x}'.format(x) for x in c['id'])
+            if sys.version_info.major > 2:
+                m = ''.join('{:02x}'.format(x) for x in c['id'])
+            else:
+                m = ''.join('{:02x}'.format(ord(x)) for x in c['id'])
             table.add_row([m, c['name']])
         print(table.draw())
         print("\nChecks:")
